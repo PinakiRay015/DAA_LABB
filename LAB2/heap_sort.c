@@ -1,56 +1,62 @@
-#include <stdio.h>
-#define MAX 100
-void RestoreHeapUp(int *, int);
-void RestoreHeapDown(int *, int, int);
-int main()
-{
-    int Heap[MAX], n, i, j;
-    printf("\n Enter the number of elements: ");
-    scanf("%d", &n);
-    printf("\n Enter the elements: ");
-    for (i = 1; i <= n; i++)
-    {
-        scanf("%d", &Heap[i]);
-        RestoreHeapUp(Heap, i);
+// Heap Sort in C
+  
+  #include <stdio.h>
+  
+  // Function to swap the the position of two elements
+  void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+  }
+  
+  void heapify(int arr[], int n, int i) {
+    // Find largest among root, left child and right child
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+  
+    if (left < n && arr[left] > arr[largest])
+      largest = left;
+  
+    if (right < n && arr[right] > arr[largest])
+      largest = right;
+  
+    // Swap and continue heapifying if root is not largest
+    if (largest != i) {
+      swap(&arr[i], &arr[largest]);
+      heapify(arr, n, largest);
     }
-    j = n;
-    for (i = 1; i <= j; i++)
-    {
-        int temp;
-        temp = Heap[1];
-        Heap[1] = Heap[n];
-        Heap[n] = temp;
-        n = n - 1;
-        RestoreHeapDown(Heap, 1, n);
+  }
+  
+  // Main function to do heap sort
+  void heapSort(int arr[], int n) {
+    // Build max heap
+    for (int i = n / 2 - 1; i >= 0; i--)
+      heapify(arr, n, i);
+  
+    // Heap sort
+    for (int i = n - 1; i >= 0; i--) {
+      swap(&arr[0], &arr[i]);
+  
+      // Heapify root element to get highest element at root again
+      heapify(arr, i, 0);
     }
-    n = j;
-    printf("\n The sorted elements are:\n");
-    for (i = 1; i <= n; i++)
-        printf("%4d", Heap[i]);
-    return 0;
-}
-void RestoreHeapUp(int *Heap, int index)
-{
-    int val = Heap[index];
-    while ((index > 1) && (Heap[index / 2] < val))
-    {
-        Heap[index] = Heap[index / 2];
-        index /= 2;
-    }
-    Heap[index] = val;
-}
-void RestoreHeapDown(int *Heap, int index, int n)
-{
-    int val = Heap[index];
-    int j = index * 2;
-    while (j <= n)
-    {
-        if ((j < n) && (Heap[j] < Heap[j + 1]))
-            j++;
-        if (Heap[j] < Heap[j / 2])
-            break;
-        Heap[j / 2] = Heap[j];
-        j = j * 2;
-    }
-    Heap[j / 2] = val;
-}
+  }
+  
+  // Print an array
+  void printArray(int arr[], int n) {
+    for (int i = 0; i < n; ++i)
+      printf("%d ", arr[i]);
+    printf("\n");
+  }
+  
+  // Driver code
+  int main() {
+    int arr[] = {1, 12, 9, 5, 6, 10};
+    int n = sizeof(arr) / sizeof(arr[0]);
+  
+    heapSort(arr, n);
+  
+    printf("Sorted array is \n");
+    printArray(arr, n);
+  }
