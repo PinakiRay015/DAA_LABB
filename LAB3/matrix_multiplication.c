@@ -10,38 +10,9 @@ int main()
     scanf("%d",&r);
     printf("Enter the number of columns :-");
     scanf("%d",&c);
-    printf("1-> Display\n");
-    printf("2-> Multiplication\n");
-    printf("enter your choice\n");
-    scanf("%d",&choice);
-    switch(choice)
+    while(1)
     {
-     case 1:   
-    for(a=0;a<r;a++)
-    {
-        for(b=0;b<c;b++)
-        {
-            printf("enter the element of array to display[%d][%d] :",a,b);
-            scanf("%d",&display[a][b]);
-        }
-    }
-    printf("the 2d array :-\n");
-    for(a=0;a<r;a++)
-    {
-        for(b=0;b<c;b++)
-        {
-            printf("%d\t",display[a][b]);
-            if(b==c-1)
-            {
-                printf("\n");
-            }
-        }
-    }
-    break;
-    
-
-    case 2:
-     printf("enter the value of first array\n");
+    printf("enter the value of first array\n");
     for(a=0;a<r;a++)
     {
         for(b=0;b<c;b++)
@@ -68,10 +39,7 @@ int main()
             printf("%d\t",multiplication_array[a][b]);
         }
         printf("\n");
-    } 
-    break;
-    default :
-    printf("INVALID CHOICE!!!\nlease choose among the above option");
+    }
     }
     return 0;
 }
